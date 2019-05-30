@@ -1,1 +1,3 @@
 test/*
+STDOUT
+*.lock
