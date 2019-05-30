@@ -3,6 +3,7 @@
 # copyright: 2018, Nigel Wright <nigel.wright@dimensiondata.com>
 
 file_location = attribute('site_location', description: 'The location of the Wordpress files')
+apache_conf = attribute('apache_conf_location', description: 'The location of the apache config file (must include config file name)')
 
 title 'Wordpress Compliance Checks'
 
@@ -138,5 +139,31 @@ control 'wpress-11' do
   desc 'Wp-config sample is not needed past the first run and should be removed'
   describe file(file_location + '/wp-config-sample.php') do
     it { should_not exist }
+  end
+end
+
+control 'wpress-12' do
+  impact 1.0
+  title 'Directory listing should be disabled in .htaccess'
+  desc 'Apache should NOT allow directory listing - this ensures sensitive files arent available to browse. This control checks both .htaccess and apache config'
+  describe file(file_location + '/.htaccess'), :sensitive do
+    its('content') { should match /IndexIgnore */ }
+  end
+end
+
+control 'wpress-13' do
+  impact 1.0
+  title 'Directory listing should be disabled in apache config'
+  describe file(apache_conf), :sensitive do
+    it { should exist }
+    its('content') { should_not match /Options Indexes/ }
+  end
+end
+
+control 'wpress-14' do
+  impact 1.0
+  title 'Disable following of symlinks'
+  describe file(apache_conf), :sensitive do
+    its('content') { should_not match /FollowSymLinks/ }
   end
 end
