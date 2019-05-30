@@ -167,3 +167,12 @@ control 'wpress-14' do
     its('content') { should_not match /FollowSymLinks/ }
   end
 end
+
+control 'wpress-15' do
+  impact 1.0
+  title 'Ensure up to date version of Apache'
+  desc 'Make sure apache does not have any available updates'
+  describe package('apache2') do
+    its('version') { should cmp >= '2.4.25' }
+  end
+end
