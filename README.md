@@ -1,3 +1,3 @@
-# Example InSpec Profile
+# Wordpress compliance profile
 
-This example shows the implementation of an InSpec profile.
+This inpsec profile tests for wordpress best practice configurations. This is very much a WIP, more controls forthcoming.
