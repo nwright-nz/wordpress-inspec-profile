@@ -1,0 +1,10 @@
+name: wordpress-checks
+title: Wordpress Compliance checks
+maintainer: Nigel Wright <nigel.wright@dimensiondata.com>
+copyright: All Rights Reserved
+copyright_email: nigel.wright@dimensiondata.com
+license: Apache-2.0
+summary: An InSpec Compliance Profile to check for wordpress compliance
+version: 0.1.0
+supports:
+  platform: os
