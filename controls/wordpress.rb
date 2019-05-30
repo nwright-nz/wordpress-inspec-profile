@@ -43,7 +43,7 @@ control 'wpress-03' do
   impact 0.7
   title 'Ensure license.txt does not exist'
   desc 'license.txt file cant include version related information of wordpress, which assists in determining exploits'
-  describe file(file_location + '/LICENSE.txt') do
+  describe file(file_location + '/license.txt') do
     it { should_not exist }
   end
 end
@@ -174,5 +174,14 @@ control 'wpress-15' do
   desc 'Make sure apache does not have any available updates'
   describe package('apache2') do
     its('version') { should cmp >= '2.4.25' }
+  end
+end
+
+control 'wpress-16' do
+  impact 0.8
+  title 'Ensure that the uploads directory is writable'
+  desc 'Uploads needs to be writable in order to store media for wordpress sites'
+  describe directory(file_location + '/wp-content/uploads') do
+    its('mode') { should cmp '0755' }
   end
 end
