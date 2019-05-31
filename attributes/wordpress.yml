@@ -1,2 +1,4 @@
 site_location : /var/www/html
 apache_conf_location : /etc/apache2/apache2.conf
+approved_plugins:
+  - test

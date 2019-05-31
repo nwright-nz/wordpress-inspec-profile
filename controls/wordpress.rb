@@ -4,6 +4,7 @@
 
 file_location = attribute('site_location', description: 'The location of the Wordpress files')
 apache_conf = attribute('apache_conf_location', description: 'The location of the apache config file (must include config file name)')
+approved_plugins = attribute('approved_plugins', description: 'The plugin whitelist')
 
 title 'Wordpress Compliance Checks'
 
@@ -183,5 +184,14 @@ control 'wpress-16' do
   desc 'Uploads needs to be writable in order to store media for wordpress sites'
   describe directory(file_location + '/wp-content/uploads') do
     its('mode') { should cmp '0755' }
+  end
+end
+
+control 'wpress-17' do
+  impact 1.0
+  title 'Make sure only approved plugins are installed'
+  desc 'Plugins can cause many exploits and vulnerabilities to wordpress installations, this control checks that only whitelisted plugins are approved'
+  describe command('wp plugin list --allow-root') do
+    its('stdout') { should be_in approved_plugins }
   end
 end
