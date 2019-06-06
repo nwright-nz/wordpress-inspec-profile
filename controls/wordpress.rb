@@ -200,7 +200,7 @@ control 'wpress-17' do
   impact 1.0
   title 'Make sure only approved plugins are installed'
   desc 'Plugins can cause many exploits and vulnerabilities to wordpress installations, this control checks that only whitelisted plugins are approved'
-  describe command('wp plugin list --allow-root --path ' + file_location) do
+  describe command('wp plugin list --allow-root --path=' + file_location) do
     its('stdout') { should match /test/ }
   end
 end
