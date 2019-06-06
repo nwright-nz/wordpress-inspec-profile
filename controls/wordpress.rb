@@ -87,11 +87,20 @@ control 'wpress-06' do
   end
 end
 
+# control 'wpress-07' do
+#   impact 1.0
+#   title 'Check Wordpress Core version'
+#   desc 'Wordpress should be within one major version of latest to ensure historical exploits are not valid'
+#   describe command('echo $WORDPRESS_VERSION') do
+#     its('stdout.strip') { should cmp >= '5.2.0' }
+#   end
+# end
+
 control 'wpress-07' do
   impact 1.0
   title 'Check Wordpress Core version'
   desc 'Wordpress should be within one major version of latest to ensure historical exploits are not valid'
-  describe command('echo $WORDPRESS_VERSION') do
+  describe command('wp core version --allow-root --path=' + file_location) do
     its('stdout.strip') { should cmp >= '5.2.0' }
   end
 end
